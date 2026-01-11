@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 dotenv.config();
 
-const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY});
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const SYSTEM_PROMPT = `
 You are a veterinary assistant chatbot.
@@ -18,28 +18,28 @@ Rules you MUST follow:
 `;
 
 export const generateAIResponse = async (messages) => {
-  try {
-    const formattedMessages = [
-      {
-        role: "user",
-        parts: [{ text: SYSTEM_PROMPT }]
-      },
-      ...messages.map((msg) => ({
-        role: msg.role === "bot" ? "model" : "user",
-        parts: [{ text: msg.content }]
-      }))
-    ];
+	try {
+		const formattedMessages = [
+			{
+				role: "user",
+				parts: [{ text: SYSTEM_PROMPT }],
+			},
+			...messages.map((msg) => ({
+				role: msg.role === "bot" ? "model" : "user",
+				parts: [{ text: msg.content }],
+			})),
+		];
 
-    const result = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: formattedMessages
-    });
+		const result = await ai.models.generateContent({
+			model: "gemini-2.5-flash",
+			contents: formattedMessages,
+		});
 
-    const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+		const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    return text || "Sorry, I couldn't generate a response.";
-  } catch (error) {
-    console.error("Gemini API error:", error);
-    return "Sorry, I'm having trouble answering right now.";
-  }
+		return text || "Sorry, I couldn't generate a response.";
+	} catch (error) {
+		console.error("Gemini API error:", error);
+		return "Sorry, I'm having trouble answering right now.";
+	}
 };

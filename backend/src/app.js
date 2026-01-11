@@ -9,11 +9,11 @@ app.use(express.json());
 
 app.use("/api/chat", chatRoutes);
 
-app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "OK",
-    service: "Chatbot API"
-  });
+app.get("/health", (_req, res) => {
+	res.status(200).json({
+		status: "OK",
+		service: "Chatbot API",
+	});
 });
 
 export default app;
