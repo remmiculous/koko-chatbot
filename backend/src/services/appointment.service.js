@@ -1,4 +1,4 @@
-import Appointment from "../models/Appointment.js";
+import Appointment from "../models/appointment.js";
 
 const STEPS = {
 	OWNER_NAME: "OWNER_NAME",
