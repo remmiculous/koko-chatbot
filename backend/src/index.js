@@ -1,10 +1,7 @@
 import dotenv from "dotenv";
+dotenv.config();
 import app from "./app.js";
 import connectDB from "./config/db.js";
-
-console.log('jelo')
-
-dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
